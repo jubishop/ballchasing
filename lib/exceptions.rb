@@ -1,0 +1,1 @@
+class BallchasingFetchError < RuntimeError; end
