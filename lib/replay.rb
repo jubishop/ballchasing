@@ -53,8 +53,29 @@ module Ballchasing
   Team = KVStruct.new(:color, :players, :stats) {
     def initialize(args)
       args.transform_keys!(&:to_sym)
+      args[:players].map! { |player| Player.new(player) }
       super(args)
     end
   }
   private_constant :Team
+
+  Player = KVStruct.new(:id,
+                        :name,
+                        :stats,
+                        :start_time,
+                        :end_time,
+                        :car_id,
+                        :car_name,
+                        :camera,
+                        :steering_sensitivity,
+                        %i[
+                          mvp
+                        ]) {
+    def initialize(args)
+      args.transform_keys!(&:to_sym)
+      args[:id] = PlayerID.new(args.fetch(:id))
+      super(args)
+    end
+  }
+  private_constant :Player
 end

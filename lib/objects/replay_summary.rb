@@ -57,27 +57,27 @@ module Ballchasing
   TeamSummary = KVStruct.new(%i[players name goals]) {
     def initialize(args)
       args.transform_keys!(&:to_sym)
-      args[:players]&.map! { |player| Player.new(player) }
+      args[:players]&.map! { |player| PlayerSummary.new(player) }
       super(args)
     end
   }
   private_constant :TeamSummary
 
-  Player = KVStruct.new(:id,
-                        :score,
-                        :start_time,
-                        :end_time,
-                        %i[
-                          name
-                          mvp
-                          pro
-                          rank
-                        ]) {
+  PlayerSummary = KVStruct.new(:id,
+                               :score,
+                               :start_time,
+                               :end_time,
+                               %i[
+                                 name
+                                 mvp
+                                 pro
+                                 rank
+                               ]) {
     def initialize(args)
       args.transform_keys!(&:to_sym)
       args[:id] = PlayerID.new(args.fetch(:id))
       super(args)
     end
   }
-  private_constant :Player
+  private_constant :PlayerSummary
 end
