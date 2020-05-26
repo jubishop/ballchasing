@@ -2,6 +2,7 @@ require 'json'
 require 'net/http'
 
 require_relative 'exceptions'
+require_relative 'replay'
 require_relative 'replays'
 
 module Ballchasing
@@ -14,6 +15,11 @@ module Ballchasing
       uri = URI('https://ballchasing.com/api/replays')
       uri.query = URI.encode_www_form(params)
       Replays.new(self, request(uri))
+    end
+
+    def replay(id)
+      uri = URI("https://ballchasing.com/api/replays/#{id}")
+      Replay.new(api: self, **request(uri))
     end
 
     def request(uri)

@@ -2,8 +2,13 @@ require 'date'
 
 require 'rstruct'
 
+require_relative 'player_id'
+require_relative 'rank'
+require_relative 'uploader'
+
 module Ballchasing
-  ReplaySummary = KVStruct.new(:id,
+  ReplaySummary = KVStruct.new(:api,
+                               :id,
                                :created,
                                :date,
                                :duration,
@@ -28,28 +33,35 @@ module Ballchasing
       args.transform_keys!(&:to_sym)
       args[:created] = DateTime.rfc3339(args.fetch(:created))
       args[:date] = DateTime.rfc3339(args.fetch(:date))
-      args[:blue] = Team.new(args.fetch(:blue))
-      args[:orange] = Team.new(args.fetch(:orange))
+      args[:link] = URI(args.fetch(:link))
+      args[:blue] = TeamSummary.new(args.fetch(:blue))
+      args[:orange] = TeamSummary.new(args.fetch(:orange))
       args[:uploader] = Uploader.new(args.fetch(:uploader))
+      args[:max_rank] = Rank.new(args.fetch(:max_rank)) if args[:max_rank]
+      args[:min_rank] = Rank.new(args.fetch(:min_rank)) if args[:min_rank]
       super(args)
+    end
+
+    def replay
+      return api.replay(id)
     end
 
     def <=>(other)
       date <=> other.date
     end
   }
-  public_constant :ReplaySummary
+  private_constant :ReplaySummary
 
-  ##### PRIVATE #####
+  ##### LOCAL #####
 
-  Team = KVStruct.new(%i[players name goals]) {
+  TeamSummary = KVStruct.new(%i[players name goals]) {
     def initialize(args)
       args.transform_keys!(&:to_sym)
       args[:players]&.map! { |player| Player.new(player) }
       super(args)
     end
   }
-  private_constant :Team
+  private_constant :TeamSummary
 
   Player = KVStruct.new(:id,
                         :score,
@@ -68,10 +80,4 @@ module Ballchasing
     end
   }
   private_constant :Player
-
-  PlayerID = KVStruct.new(%i[id player_number platform])
-  private_constant :PlayerID
-
-  Uploader = KVStruct.new(:steam_id, :name, :profile_url, :avatar)
-  private_constant :Uploader
 end

@@ -1,22 +1,23 @@
-require_relative 'api'
 require_relative 'objects/replay_summary'
 
 module Ballchasing
   class Replays
     include Enumerable
 
-    attr_reader :replays
+    attr_reader :replay_summaries
 
     def initialize(api, data)
       data.transform_keys!(&:to_sym)
 
       @api = api
-      @replays = data[:list].map { |summary| ReplaySummary.new(summary) }
+      @replay_summaries = data[:list].map { |summary|
+        ReplaySummary.new(api: @api, **summary)
+      }
       @next = URI.parse(data[:next])
     end
 
     def each
-      @replays.each { |replay| yield replay }
+      @replay_summaries.each { |replay_summary| yield replay_summary }
     end
 
     def next

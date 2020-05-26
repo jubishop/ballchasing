@@ -72,6 +72,9 @@ Style/BlockDelimiters:
 Style/Copyright:
   Enabled: false
 
+Style/DateTime:
+  Enabled: false
+
 Style/DisableCopsWithinSourceCodeDirective:
   Enabled: false
 
