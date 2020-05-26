@@ -11,8 +11,8 @@ module Ballchasing
                                :id,
                                :created,
                                :date,
-                               :duration,
                                :link,
+                               :duration,
                                :map_code,
                                :map_name,
                                :blue,
@@ -29,6 +29,8 @@ module Ballchasing
                                  min_rank
                                  recorder
                                ]) {
+    include Comparable
+
     def initialize(args)
       args.transform_keys!(&:to_sym)
       args[:created] = DateTime.rfc3339(args.fetch(:created))
