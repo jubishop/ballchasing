@@ -10,6 +10,13 @@ Add this line to your application's Gemfile:
 gem 'ballchasing', github: 'jubishop/ballchasing'
 ```
 
+You will need these dependencies too:
+
+```ruby
+gem 'json'
+gem 'rstruct', github: 'jubishop/rstruct'
+```
+
 And then execute:
 
 ```sh
@@ -20,7 +27,7 @@ $ bundle install
 
 ### More examples
 
-See the code in [RLBot](https://github.com/jubishop/RLBot) for example uses.
+See the code in [RLBot](https://github.com/jubishop/RLBot) for example use.
 
 ## Contributing
 

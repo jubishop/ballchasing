@@ -11,4 +11,5 @@ Gem::Specification.new do |spec|
   spec.metadata["source_code_uri"] = "https://github.com/jubishop/ballchasing"
   spec.files         = Dir["lib/**/*.rb"]
   spec.add_runtime_dependency 'json'
+  spec.add_runtime_dependency 'rstruct'
 end
