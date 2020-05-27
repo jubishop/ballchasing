@@ -25,6 +25,7 @@ module Ballchasing
                                :uploader,
                                :visibility,
                                %i[
+                                 groups
                                  max_rank
                                  min_rank
                                  recorder
@@ -45,7 +46,10 @@ module Ballchasing
     end
 
     def replay
-      return api.replay(id)
+      return @replay unless @replay.nil?
+
+      @replay = api.replay(id)
+      return @replay
     end
 
     def <=>(other)
@@ -59,7 +63,7 @@ module Ballchasing
   TeamSummary = KVStruct.new(%i[players name goals]) {
     def initialize(args)
       args.transform_keys!(&:to_sym)
-      args[:players]&.map! { |player| PlayerSummary.new(player) }
+      args[:players].map! { |player| PlayerSummary.new(player) }
       super(args)
     end
   }
