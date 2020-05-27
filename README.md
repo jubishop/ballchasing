@@ -25,9 +25,9 @@ $ bundle install
 
 ## Usage
 
-First, create an API instance:
-
 ```ruby
+require 'ballchasing'
+
 # token param will default to ENV['BALLCHASING_TOKEN']
 api = Ballchasing::API.new(token)
 
