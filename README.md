@@ -13,7 +13,7 @@ gem 'ballchasing', github: 'jubishop/ballchasing'
 You will need these dependencies too:
 
 ```ruby
-gem 'json'
+gem 'http'
 gem 'rstruct', github: 'jubishop/rstruct'
 ```
 
