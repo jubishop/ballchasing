@@ -27,7 +27,7 @@ module Ballchasing
         query: HTTP::URI.form_encode(query))
 
       begin
-        response = HTTP.auth(@token).get(uri).parse
+        response = HTTP.auth(@token).get(uri)
         raise Ballchasing::Error, uri unless response.status.success?
         data = response.parse
       rescue HTTP::Error

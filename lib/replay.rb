@@ -1,6 +1,7 @@
 require 'rstruct'
 
 require_relative 'objects/rank'
+require_relative 'objects/replay_group'
 require_relative 'objects/uploader'
 
 module Ballchasing
@@ -25,6 +26,7 @@ module Ballchasing
                         :visibility,
                         :status,
                         %i[
+                          groups
                           min_rank
                           max_rank
                           recorder
@@ -41,6 +43,11 @@ module Ballchasing
       args[:uploader] = Uploader.new(args.fetch(:uploader))
       args[:max_rank] = Rank.new(args.fetch(:max_rank)) if args[:max_rank]
       args[:min_rank] = Rank.new(args.fetch(:min_rank)) if args[:min_rank]
+      if (args[:groups])
+        args[:groups] = args.fetch(:groups).map { |group|
+          ReplayGroup.new(group)
+        }
+      end
       super(args)
     end
 
