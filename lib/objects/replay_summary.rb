@@ -43,7 +43,7 @@ module Ballchasing
       args[:uploader] = Uploader.new(args.fetch(:uploader))
       args[:max_rank] = Rank.new(args.fetch(:max_rank)) if args[:max_rank]
       args[:min_rank] = Rank.new(args.fetch(:min_rank)) if args[:min_rank]
-      if (args[:groups])
+      if args[:groups]
         args[:groups] = args.fetch(:groups).map { |group|
           ReplayGroup.new(group)
         }

@@ -8,7 +8,7 @@ module Ballchasing
   class API
     def initialize(token = ENV['BALLCHASING_TOKEN'])
       @token = token
-      raise ArgumentError, "Ballchasing::API needs a token" unless @token
+      raise ArgumentError, 'Ballchasing::API needs a token' unless @token
     end
 
     def replays(params = {})
@@ -21,17 +21,18 @@ module Ballchasing
 
     def request(path, query = {})
       uri = HTTP::URI.new(
-        scheme: 'https',
-        host: 'ballchasing.com',
-        path: path,
-        query: HTTP::URI.form_encode(query))
+          scheme: 'https',
+          host: 'ballchasing.com',
+          path: path,
+          query: HTTP::URI.form_encode(query))
 
       begin
         response = HTTP.auth(@token).get(uri)
-        raise Ballchasing::Error, uri unless response.status.success?
+        raise Error, uri unless response.status.success?
+
         data = response.parse
       rescue HTTP::Error
-        raise Ballchasing::Error, uri
+        raise Error, uri
       end
 
       return data
