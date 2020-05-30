@@ -1,5 +1,4 @@
-require 'json'
-require 'net/http'
+require 'http'
 
 require_relative 'exceptions'
 require_relative 'replay'
@@ -9,30 +8,33 @@ module Ballchasing
   class API
     def initialize(token = ENV['BALLCHASING_TOKEN'])
       @token = token
+      raise ArgumentError, "Ballchasing::API needs a token" unless @token
     end
 
     def replays(params = {})
-      uri = URI('https://ballchasing.com/api/replays')
-      uri.query = URI.encode_www_form(params)
-      Replays.new(self, request(uri))
+      Replays.new(self, request('/api/replays', params))
     end
 
     def replay(id)
-      uri = URI("https://ballchasing.com/api/replays/#{id}")
-      Replay.new(api: self, **request(uri))
+      Replay.new(api: self, **request("api/replays/#{id}"))
     end
 
-    def request(uri)
-      http = Net::HTTP.new(uri.host, uri.port)
-      http.use_ssl = true
+    def request(path, query = {})
+      uri = HTTP::URI.new(
+        scheme: 'https',
+        host: 'ballchasing.com',
+        path: path,
+        query: HTTP::URI.form_encode(query))
 
-      request = Net::HTTP::Get.new(uri.request_uri)
-      request['Authorization'] = @token
+      begin
+        response = HTTP.auth(@token).get(uri).parse
+        raise Ballchasing::Error, uri unless response.status.success?
+        data = response.parse
+      rescue HTTP::Error
+        raise Ballchasing::Error, uri
+      end
 
-      response = http.request(request)
-      raise BallchasingFetchError unless response.is_a?(Net::HTTPSuccess)
-
-      return JSON.parse(response.body)
+      return data
     end
 
     # Don't let auth token get printed.

@@ -1,1 +1,3 @@
-class BallchasingFetchError < RuntimeError; end
+module Ballchasing
+  class Error < RuntimeError; end
+end
