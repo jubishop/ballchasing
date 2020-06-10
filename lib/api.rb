@@ -28,11 +28,12 @@ module Ballchasing
 
       begin
         response = HTTP.auth(@token).get(uri)
+        raise RateLimitError, response if response.status.code == 429
         raise ResponseError, response unless response.status.success?
 
         data = response.parse
-      rescue HTTP::Error => error
-        raise RequestError, error
+      rescue HTTP::Error => e
+        raise RequestError, e
       end
 
       return data

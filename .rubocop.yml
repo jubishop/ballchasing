@@ -5,7 +5,6 @@ AllCops:
   EnabledByDefault: true
   Exclude:
     - ballchasing.gemspec
-
   TargetRubyVersion: 2.7.1
 
 Bundler/GemComment:
@@ -24,12 +23,6 @@ Layout/FirstHashElementIndentation:
 Layout/FirstMethodArgumentLineBreak:
   Enabled: false
 
-Layout/FirstMethodParameterLineBreak:
-  Enabled: false
-
-Layout/HeredocIndentation:
-  Enabled: false
-
 Layout/LineLength:
   Max: 80
 
@@ -41,6 +34,9 @@ Layout/MultilineMethodArgumentLineBreaks:
 
 Layout/MultilineMethodCallBraceLayout:
   EnforcedStyle: same_line
+
+Lint/NumberConversion:
+  Enabled: false
 
 Metrics/AbcSize:
   Enabled: false
@@ -100,9 +96,13 @@ Style/MethodCallWithArgsParentheses:
     - raise
     - require
     - require_relative
+    - ruby
     - source
 
 Style/MissingElse:
+  Enabled: false
+
+Style/MultilineIfModifier:
   Enabled: false
 
 Style/NumericLiterals:
@@ -111,11 +111,5 @@ Style/NumericLiterals:
 Style/OptionHash:
   Enabled: false
 
-Style/ParallelAssignment:
-  Enabled: false
-
 Style/RedundantReturn:
   Enabled: false
-
-Style/SlicingWithRange:
-  Enabled: true
