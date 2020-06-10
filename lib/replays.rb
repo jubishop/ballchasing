@@ -4,8 +4,6 @@ module Ballchasing
   class Replays
     include Enumerable
 
-    attr_reader :replay_summaries
-
     def initialize(api, data)
       data.transform_keys!(&:to_sym)
 

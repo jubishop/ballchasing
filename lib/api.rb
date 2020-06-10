@@ -28,11 +28,11 @@ module Ballchasing
 
       begin
         response = HTTP.auth(@token).get(uri)
-        raise Error, uri unless response.status.success?
+        raise ResponseError, response unless response.status.success?
 
         data = response.parse
-      rescue HTTP::Error
-        raise Error, uri
+      rescue HTTP::Error => error
+        raise RequestError, error
       end
 
       return data
