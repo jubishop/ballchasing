@@ -43,11 +43,7 @@ module Ballchasing
       args[:uploader] = Uploader.new(args.fetch(:uploader))
       args[:max_rank] = Rank.new(args.fetch(:max_rank)) if args[:max_rank]
       args[:min_rank] = Rank.new(args.fetch(:min_rank)) if args[:min_rank]
-      if args[:groups]
-        args[:groups] = args.fetch(:groups).map { |group|
-          ReplayGroup.new(group)
-        }
-      end
+      args[:groups]&.map! { |group| ReplayGroup.new(group) }
       super(args)
     end
 
@@ -69,7 +65,7 @@ module Ballchasing
   TeamSummary = KVStruct.new(%i[players name goals]) {
     def initialize(args)
       args.transform_keys!(&:to_sym)
-      args[:players].map! { |player| PlayerSummary.new(player) }
+      args[:players]&.map! { |player| PlayerSummary.new(player) }
       super(args)
     end
   }

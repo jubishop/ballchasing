@@ -11,7 +11,7 @@ module Ballchasing
       @replay_summaries = data[:list].map { |summary|
         ReplaySummary.new(api: @api, **summary)
       }
-      @next = URI.parse(data[:next]) if data[:next]
+      @next = URI.parse(data.fetch(:next)) if data[:next]
     end
 
     def each

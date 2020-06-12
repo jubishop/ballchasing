@@ -1,10 +1,6 @@
 require 'rstruct'
+
 module Ballchasing
-  PlayerID = KVStruct.new(%i[id player_number platform]) {
-    def initialize(args)
-      args.transform_keys!(&:to_sym)
-      super(args)
-    end
-  }
+  PlayerID = KVStruct.new(%i[id platform])
   private_constant :PlayerID
 end
