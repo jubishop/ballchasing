@@ -1,6 +1,6 @@
 require 'rstruct'
 
 module Ballchasing
-  Rank = KVStruct.new(:id, :tier, :division, :name)
+  Rank = KVStruct.new(:tier, :division, :name, [:id])
   private_constant :Rank
 end
