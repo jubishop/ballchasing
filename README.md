@@ -33,7 +33,7 @@ api = Ballchasing::API.new(token)
 
 # Lets get the first 10 matches that are:
 #   ranked-doubles matches,
-#   with a grand-champion,
+#   with all grand-champions,
 #   sorted from oldest first,
 #   starting one day ago:
 # All params from the /replays endpoint are supported.
@@ -46,8 +46,7 @@ results = api.replays(
   'playlist': 'ranked-doubles',
   'min-rank': 'grand-champion')
 
-# The summary info for each replay is in the array `.replay_summaries`
-# The results object itself also implements Enumerable, so you can `.each` over
+# The results object itself implements Enumerable, so you can `.each` over
 # it for every summary.
 results.each { |summary|
   # You can see all the summary attributes in lib/objects/replay_summary.rb
