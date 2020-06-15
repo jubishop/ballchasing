@@ -11,7 +11,7 @@ module Ballchasing
       raise ArgumentError, 'Ballchasing::API needs a token' unless @token
     end
 
-    def replays(params = {})
+    def replays(params = {}) # rubocop:disable Style/OptionHash
       Replays.new(self, request('/api/replays', params))
     end
 
