@@ -61,12 +61,16 @@ module Ballchasing
 
   ##### LOCAL #####
 
-  TeamSummary = KVStruct.new(%i[players name goals]) {
+  class TeamSummary
+    attr_reader :players, :name, :goals
+
     def initialize(players: [], name: nil, goals: [])
       players.map! { |player| PlayerSummary.new(player) }
-      super(players: players, name: name, goals: goals)
+      @players = players
+      @name = name
+      @goals = goals
     end
-  }
+  end
   private_constant :TeamSummary
 
   PlayerSummary = KVStruct.new(:id,
