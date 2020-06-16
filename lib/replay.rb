@@ -164,7 +164,6 @@ module Ballchasing
                           rank
                         ]) {
     def initialize(args)
-      args.transform_keys!(&:to_sym)
       args[:id] = PlayerID.new(args.fetch(:id))
       args[:stats] = PlayerStats.new(args.fetch(:stats))
       args[:camera] = Camera.new(args.fetch(:camera))
@@ -179,14 +178,12 @@ module Ballchasing
                              :movement,
                              :positioning,
                              :demo) {
-    def initialize(args)
-      args.transform_keys!(&:to_sym)
-      args[:core] = PlayerCore.new(args.fetch(:core))
-      args[:boost] = PlayerBoost.new(args.fetch(:boost))
-      args[:movement] = PlayerMovement.new(args.fetch(:movement))
-      args[:positioning] = PlayerPositioning.new(args.fetch(:positioning))
-      args[:demo] = Demo.new(args.fetch(:demo))
-      super(args)
+    def initialize(core:, boost:, movement:, positioning:, demo:)
+      super(core: PlayerCore.new(core),
+            boost: PlayerBoost.new(boost),
+            movement: PlayerMovement.new(movement),
+            positioning: PlayerPositioning.new(positioning),
+            demo: Demo.new(demo))
     end
   }
   private_constant :PlayerStats

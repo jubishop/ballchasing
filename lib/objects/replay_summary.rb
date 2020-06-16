@@ -37,8 +37,6 @@ module Ballchasing
       args[:created] = DateTime.rfc3339(args.fetch(:created))
       args[:date] = DateTime.rfc3339(args.fetch(:date))
       args[:link] = URI(args.fetch(:link))
-      args[:blue].transform_keys!(&:to_sym)
-      args[:orange].transform_keys!(&:to_sym)
       args[:blue] = TeamSummary.new(args.fetch(:blue))
       args[:orange] = TeamSummary.new(args.fetch(:orange))
       args[:uploader] = Uploader.new(args.fetch(:uploader))
@@ -82,7 +80,6 @@ module Ballchasing
                                  rank
                                ]) {
     def initialize(args)
-      args.transform_keys!(&:to_sym)
       args[:id] = PlayerID.new(args.fetch(:id))
       super(args)
     end
