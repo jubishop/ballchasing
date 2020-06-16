@@ -34,10 +34,11 @@ module Ballchasing
     include Comparable
 
     def initialize(args)
-      args.transform_keys!(&:to_sym)
       args[:created] = DateTime.rfc3339(args.fetch(:created))
       args[:date] = DateTime.rfc3339(args.fetch(:date))
       args[:link] = URI(args.fetch(:link))
+      args[:blue].transform_keys!(&:to_sym)
+      args[:orange].transform_keys!(&:to_sym)
       args[:blue] = TeamSummary.new(args.fetch(:blue))
       args[:orange] = TeamSummary.new(args.fetch(:orange))
       args[:uploader] = Uploader.new(args.fetch(:uploader))
@@ -63,13 +64,9 @@ module Ballchasing
   ##### LOCAL #####
 
   TeamSummary = KVStruct.new(%i[players name goals]) {
-    def initialize(args)
-      args.transform_keys!(&:to_sym)
-      args[:players] ||= []
-      args[:goals] ||= []
-
-      args[:players].map! { |player| PlayerSummary.new(player) }
-      super(args)
+    def initialize(players: [], name: nil, goals: [])
+      players.map! { |player| PlayerSummary.new(player) }
+      super(players: players, name: name, goals: goals)
     end
   }
   private_constant :TeamSummary

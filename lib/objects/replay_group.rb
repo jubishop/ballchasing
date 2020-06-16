@@ -1,9 +1,7 @@
 module Ballchasing
   ReplayGroup = KVStruct.new(:id, :name, :link) {
-    def initialize(args)
-      args.transform_keys!(&:to_sym)
-      args[:link] = URI(args.fetch(:link))
-      super(args)
+    def initialize(id:, name:, link:)
+      super(id: id, name: name, link: URI(link))
     end
   }
   private_constant :ReplayGroup

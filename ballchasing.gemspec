@@ -10,6 +10,7 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = Gem::Requirement.new(">= 2.7.1")
   spec.metadata["source_code_uri"] = "https://github.com/jubishop/ballchasing"
   spec.files         = Dir["lib/**/*.rb"]
+  spec.add_runtime_dependency 'core'
   spec.add_runtime_dependency 'http'
   spec.add_runtime_dependency 'rstruct'
 end

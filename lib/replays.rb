@@ -5,8 +5,6 @@ module Ballchasing
     include Enumerable
 
     def initialize(api, data)
-      data.transform_keys!(&:to_sym)
-
       @api = api
       @replay_summaries = data[:list].map { |summary|
         ReplaySummary.new(api: @api, **summary)

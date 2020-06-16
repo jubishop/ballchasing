@@ -34,7 +34,6 @@ module Ballchasing
     include Comparable
 
     def initialize(args)
-      args.transform_keys!(&:to_sym)
       args[:created] = DateTime.rfc3339(args.fetch(:created))
       args[:date] = DateTime.rfc3339(args.fetch(:date))
       args[:link] = URI(args.fetch(:link))
@@ -68,11 +67,12 @@ module Ballchasing
   ##### TEAM #####
 
   Team = KVStruct.new(:color, :players, :stats, [:name]) {
-    def initialize(args)
-      args.transform_keys!(&:to_sym)
-      args[:players].map! { |player| Player.new(player) }
-      args[:stats] = TeamStats.new(args.fetch(:stats))
-      super(args)
+    def initialize(color:, players:, stats:, name: nil)
+      players.map! { |player| Player.new(player) }
+      super(color: color,
+            players: players,
+            stats: TeamStats.new(stats),
+            name: name)
     end
   }
   private_constant :Team
@@ -83,15 +83,13 @@ module Ballchasing
                            :movement,
                            :positioning,
                            :demo) {
-    def initialize(args)
-      args.transform_keys!(&:to_sym)
-      args[:ball] = Ball.new(args.fetch(:ball)) if args[:ball]
-      args[:core] = TeamCore.new(args.fetch(:core))
-      args[:boost] = TeamBoost.new(args.fetch(:boost))
-      args[:movement] = TeamMovement.new(args.fetch(:movement))
-      args[:positioning] = TeamPositioning.new(args.fetch(:positioning))
-      args[:demo] = Demo.new(args.fetch(:demo))
-      super(args)
+    def initialize(ball:, core:, boost:, movement:, positioning:, demo:)
+      super(ball: Ball.new(ball),
+            core: TeamCore.new(core),
+            boost: TeamBoost.new(boost),
+            movement: TeamMovement.new(movement),
+            positioning: TeamPositioning.new(positioning),
+            demo: Demo.new(demo))
     end
   }
   private_constant :TeamStats

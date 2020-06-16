@@ -1,5 +1,7 @@
 require 'http'
 
+require 'core'
+
 require_relative 'exceptions'
 require_relative 'replay'
 require_relative 'replays'
@@ -36,6 +38,7 @@ module Ballchasing
         raise RequestError, e
       end
 
+      data.deep_symbolize_keys!
       return data
     end
 
