@@ -37,9 +37,9 @@ module Ballchasing
       args[:created] = DateTime.rfc3339(args.fetch(:created))
       args[:date] = DateTime.rfc3339(args.fetch(:date))
       args[:link] = URI(args.fetch(:link))
-      args[:blue] = Team.new(args.fetch(:blue))
-      args[:orange] = Team.new(args.fetch(:orange))
-      args[:uploader] = Uploader.new(args.fetch(:uploader))
+      args[:blue] = Team.new(**args.fetch(:blue))
+      args[:orange] = Team.new(**args.fetch(:orange))
+      args[:uploader] = Uploader.new(**args.fetch(:uploader))
       args[:max_rank] = Rank.new(args.fetch(:max_rank)) if args[:max_rank]
       args[:min_rank] = Rank.new(args.fetch(:min_rank)) if args[:min_rank]
       args[:groups]&.map! { |group| ReplayGroup.new(group) }
@@ -71,7 +71,7 @@ module Ballchasing
       players.map! { |player| Player.new(player) }
       super(color: color,
             players: players,
-            stats: TeamStats.new(stats),
+            stats: TeamStats.new(**stats),
             name: name)
     end
   }
@@ -165,7 +165,7 @@ module Ballchasing
                         ]) {
     def initialize(args)
       args[:id] = PlayerID.new(args.fetch(:id))
-      args[:stats] = PlayerStats.new(args.fetch(:stats))
+      args[:stats] = PlayerStats.new(**args.fetch(:stats))
       args[:camera] = Camera.new(args.fetch(:camera))
       args[:rank] = Rank.new(args.fetch(:rank)) if args[:rank]
       super(args)
