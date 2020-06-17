@@ -61,7 +61,7 @@ module Ballchasing
   Demo = KVStruct.new(:inflicted, :taken)
   private_constant :Demo
 
-  Ball = KVStruct.new(:time_in_side, [:possession_time])
+  Ball = KVStruct.new([:time_in_side, :possession_time])
   private_constant :Ball
 
   ##### TEAM #####
