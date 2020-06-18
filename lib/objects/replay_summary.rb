@@ -34,8 +34,8 @@ module Ballchasing
     include Comparable
 
     def initialize(args)
-      args[:created] = DateTime.rfc3339(args.fetch(:created))
-      args[:date] = DateTime.rfc3339(args.fetch(:date))
+      args[:created] = DateTime.rfc3339(args.fetch(:created)).to_time
+      args[:date] = DateTime.rfc3339(args.fetch(:date)).to_time
       args[:link] = URI(args.fetch(:link))
       args[:blue] = TeamSummary.new(**args.fetch(:blue))
       args[:orange] = TeamSummary.new(**args.fetch(:orange))

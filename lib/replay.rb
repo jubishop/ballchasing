@@ -1,3 +1,4 @@
+require 'date'
 require 'json'
 
 require 'rstruct'
@@ -37,8 +38,8 @@ module Ballchasing
 
     def initialize(args)
       @data = args
-      args[:created] = DateTime.rfc3339(args.fetch(:created))
-      args[:date] = DateTime.rfc3339(args.fetch(:date))
+      args[:created] = DateTime.rfc3339(args.fetch(:created)).to_time
+      args[:date] = DateTime.rfc3339(args.fetch(:date)).to_time
       args[:link] = URI(args.fetch(:link))
       args[:blue] = Team.new(**args.fetch(:blue))
       args[:orange] = Team.new(**args.fetch(:orange))
