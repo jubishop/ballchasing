@@ -1,5 +1,4 @@
 require 'date'
-require 'json'
 
 require 'rstruct'
 
@@ -52,10 +51,6 @@ module Ballchasing
     def <=>(other)
       date <=> other.date
     end
-
-    def to_json
-      return raw_data
-    end
   }
   public_constant :Replay
 
@@ -68,7 +63,7 @@ module Ballchasing
   Demo = KVStruct.new(:inflicted, :taken)
   private_constant :Demo
 
-  Ball = KVStruct.new([:time_in_side, :possession_time])
+  Ball = KVStruct.new(%i[time_in_side possession_time])
   private_constant :Ball
 
   ##### TEAM #####
