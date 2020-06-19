@@ -1,4 +1,5 @@
 require 'date'
+require 'json'
 
 require 'rstruct'
 
@@ -7,7 +8,7 @@ require_relative 'objects/replay_group'
 require_relative 'objects/uploader'
 
 module Ballchasing
-  Replay = KVStruct.new(:api,
+  Replay = KVStruct.new(:raw_data,
                         :id,
                         :created,
                         :date,
@@ -50,6 +51,10 @@ module Ballchasing
 
     def <=>(other)
       date <=> other.date
+    end
+
+    def to_json
+      return raw_data
     end
   }
   public_constant :Replay

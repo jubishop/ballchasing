@@ -1,3 +1,4 @@
+require 'json'
 require 'http'
 
 require 'core'
@@ -18,7 +19,7 @@ module Ballchasing
     end
 
     def replay(id)
-      Replay.new(api: self, **request("api/replays/#{id}"))
+      Replay.new(**request("api/replays/#{id}"))
     end
 
     def request(path, query = {})
@@ -33,7 +34,9 @@ module Ballchasing
         raise RateLimitError, response if response.status.code == 429
         raise ResponseError, response unless response.status.success?
 
-        data = response.parse
+        raw_data = response.to_s
+        data = JSON.parse(raw_data)
+        data[:raw_data] = raw_data
       rescue HTTP::Error => e
         raise RequestError, e
       end
