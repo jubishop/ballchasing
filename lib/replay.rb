@@ -37,7 +37,7 @@ module Ballchasing
     include Comparable
 
     def initialize(args)
-      @data = args
+      @data = args.clone
       args[:created] = DateTime.rfc3339(args.fetch(:created)).to_time
       args[:date] = DateTime.rfc3339(args.fetch(:date)).to_time
       args[:link] = URI(args.fetch(:link))
