@@ -58,7 +58,7 @@ module Ballchasing
       return @data.to_json
     end
   }
-  private_constant :Replay
+  public_constant :Replay
 
   #####################################
   # LOCAL
