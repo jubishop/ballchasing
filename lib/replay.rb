@@ -1,5 +1,4 @@
 require 'date'
-require 'json'
 
 require 'rstruct'
 
@@ -37,7 +36,6 @@ module Ballchasing
     include Comparable
 
     def initialize(args)
-      @data = args.clone
       args[:created] = DateTime.rfc3339(args.fetch(:created)).to_time
       args[:date] = DateTime.rfc3339(args.fetch(:date)).to_time
       args[:link] = URI(args.fetch(:link))
@@ -52,10 +50,6 @@ module Ballchasing
 
     def <=>(other)
       date <=> other.date
-    end
-
-    def to_json
-      return @data.to_json
     end
   }
   public_constant :Replay

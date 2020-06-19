@@ -38,8 +38,7 @@ module Ballchasing
         raise RequestError, e
       end
 
-      data.deep_symbolize_keys!
-      return data
+      return data.deep_symbolize_keys!
     end
 
     # Don't let auth token get printed.
