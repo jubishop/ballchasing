@@ -4,17 +4,16 @@ A Ruby library for ballchasing.com's API
 
 ## Installation
 
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'ballchasing', github: 'jubishop/ballchasing'
-```
-
-You will need these dependencies too:
+Add these lines to your application's Gemfile:
 
 ```ruby
 gem 'http'
+
+gem 'core', github: 'jubishop/core'
+gem 'duration', github: 'jubishop/duration'
 gem 'rstruct', github: 'jubishop/rstruct'
+
+gem 'ballchasing', github: 'jubishop/ballchasing'
 ```
 
 And then execute:
