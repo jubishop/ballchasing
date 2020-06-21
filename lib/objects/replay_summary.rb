@@ -37,9 +37,10 @@ module Ballchasing
       args[:created] = DateTime.rfc3339(args.fetch(:created)).to_time
       args[:date] = DateTime.rfc3339(args.fetch(:date)).to_time
       args[:link] = URI(args.fetch(:link))
+      args[:duration] = args.fetch(:duration).seconds
       args[:blue] = TeamSummary.new(**args.fetch(:blue))
       args[:orange] = TeamSummary.new(**args.fetch(:orange))
-      args[:uploader] = Uploader.new(**args.fetch(:uploader))
+      args[:uploader] = Uploader.new(args.fetch(:uploader))
       args[:max_rank] = Rank.new(args.fetch(:max_rank)) if args[:max_rank]
       args[:min_rank] = Rank.new(args.fetch(:min_rank)) if args[:min_rank]
       args[:groups]&.map! { |group| ReplayGroup.new(group) }

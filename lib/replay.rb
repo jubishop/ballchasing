@@ -1,6 +1,9 @@
 require 'date'
 
+require 'duration'
 require 'rstruct'
+
+require_relative 'structs/bc_struct'
 
 require_relative 'objects/rank'
 require_relative 'objects/replay_group'
@@ -39,9 +42,10 @@ module Ballchasing
       args[:created] = DateTime.rfc3339(args.fetch(:created)).to_time
       args[:date] = DateTime.rfc3339(args.fetch(:date)).to_time
       args[:link] = URI(args.fetch(:link))
-      args[:blue] = Team.new(**args.fetch(:blue))
-      args[:orange] = Team.new(**args.fetch(:orange))
-      args[:uploader] = Uploader.new(**args.fetch(:uploader))
+      args[:duration] = args.fetch(:duration).seconds
+      args[:blue] = Team.new(args.fetch(:blue))
+      args[:orange] = Team.new(args.fetch(:orange))
+      args[:uploader] = Uploader.new(args.fetch(:uploader))
       args[:max_rank] = Rank.new(args.fetch(:max_rank)) if args[:max_rank]
       args[:min_rank] = Rank.new(args.fetch(:min_rank)) if args[:min_rank]
       args[:groups]&.map! { |group| ReplayGroup.new(group) }
@@ -69,12 +73,10 @@ module Ballchasing
   ##### TEAM #####
 
   Team = KVStruct.new(:color, :players, :stats, [:name]) {
-    def initialize(color:, players:, stats:, name: nil)
-      players.map! { |player| Player.new(player) }
-      super(color: color,
-            players: players,
-            stats: TeamStats.new(**stats),
-            name: name)
+    def initialize(args)
+      args[:players].map! { |player| Player.new(player) }
+      args[:stats] = TeamStats.new(args.fetch(:stats))
+      super(args)
     end
   }
   private_constant :Team
@@ -85,13 +87,13 @@ module Ballchasing
                            :movement,
                            :positioning,
                            :demo) {
-    def initialize(ball:, core:, boost:, movement:, positioning:, demo:)
-      super(ball: Ball.new(ball),
-            core: TeamCore.new(core),
-            boost: TeamBoost.new(boost),
-            movement: TeamMovement.new(movement),
-            positioning: TeamPositioning.new(positioning),
-            demo: Demo.new(demo))
+    def initialize(args)
+      super(ball: Ball.new(args.fetch(:ball)),
+            core: TeamCore.new(args.fetch(:core)),
+            boost: TeamBoost.new(args.fetch(:boost)),
+            movement: TeamMovement.new(args.fetch(:movement)),
+            positioning: TeamPositioning.new(args.fetch(:positioning)),
+            demo: Demo.new(args.fetch(:demo)))
     end
   }
   private_constant :TeamStats
@@ -106,7 +108,7 @@ module Ballchasing
                           :shooting_percentage)
   private_constant :TeamCore
 
-  TeamBoost = KVStruct.new(:bpm,
+  TeamBoost = BCStruct.new(:bpm,
                            :bcpm,
                            :avg_amount,
                            :amount_collected,
@@ -130,7 +132,7 @@ module Ballchasing
                            :time_boost_75_100)
   private_constant :TeamBoost
 
-  TeamMovement = KVStruct.new(:total_distance,
+  TeamMovement = BCStruct.new(:total_distance,
                               :time_supersonic_speed,
                               :time_boost_speed,
                               :time_slow_speed,
@@ -141,7 +143,7 @@ module Ballchasing
                               :count_powerslide)
   private_constant :TeamMovement
 
-  TeamPositioning = KVStruct.new(:time_defensive_third,
+  TeamPositioning = BCStruct.new(:time_defensive_third,
                                  :time_neutral_third,
                                  :time_offensive_third,
                                  :time_defensive_half,
@@ -167,7 +169,7 @@ module Ballchasing
                         ]) {
     def initialize(args)
       args[:id] = PlayerID.new(args.fetch(:id))
-      args[:stats] = PlayerStats.new(**args.fetch(:stats))
+      args[:stats] = PlayerStats.new(args.fetch(:stats))
       args[:camera] = Camera.new(args.fetch(:camera))
       args[:rank] = Rank.new(args.fetch(:rank)) if args[:rank]
       super(args)
@@ -180,12 +182,12 @@ module Ballchasing
                              :movement,
                              :positioning,
                              :demo) {
-    def initialize(core:, boost:, movement:, positioning:, demo:)
-      super(core: PlayerCore.new(core),
-            boost: PlayerBoost.new(boost),
-            movement: PlayerMovement.new(movement),
-            positioning: PlayerPositioning.new(positioning),
-            demo: Demo.new(demo))
+    def initialize(args)
+      super(core: PlayerCore.new(args.fetch(:core)),
+            boost: PlayerBoost.new(args.fetch(:boost)),
+            movement: PlayerMovement.new(args.fetch(:movement)),
+            positioning: PlayerPositioning.new(args.fetch(:positioning)),
+            demo: Demo.new(args.fetch(:demo)))
     end
   }
   private_constant :PlayerStats
@@ -201,7 +203,7 @@ module Ballchasing
                             :shooting_percentage)
   private_constant :PlayerCore
 
-  PlayerBoost = KVStruct.new(:bpm,
+  PlayerBoost = BCStruct.new(:bpm,
                              :bcpm,
                              :avg_amount,
                              :amount_collected,
@@ -218,20 +220,20 @@ module Ballchasing
                              :amount_overfill_stolen,
                              :amount_used_while_supersonic,
                              :time_zero_boost,
-                             :percent_zero_boost,
                              :time_full_boost,
-                             :percent_full_boost,
                              :time_boost_0_25,
                              :time_boost_25_50,
                              :time_boost_50_75,
                              :time_boost_75_100,
+                             :percent_zero_boost,
+                             :percent_full_boost,
                              :percent_boost_0_25,
                              :percent_boost_25_50,
                              :percent_boost_50_75,
                              :percent_boost_75_100)
   private_constant :PlayerBoost
 
-  PlayerMovement = KVStruct.new(:avg_speed,
+  PlayerMovement = BCStruct.new(:avg_speed,
                                 :total_distance,
                                 :time_supersonic_speed,
                                 :time_boost_speed,
@@ -251,7 +253,7 @@ module Ballchasing
                                 :percent_high_air)
   private_constant :PlayerMovement
 
-  PlayerPositioning = KVStruct.new(:avg_distance_to_ball,
+  PlayerPositioning = BCStruct.new(:avg_distance_to_ball,
                                    :avg_distance_to_ball_possession,
                                    :avg_distance_to_ball_no_possession,
                                    :time_defensive_third,
