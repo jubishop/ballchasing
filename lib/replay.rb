@@ -176,12 +176,11 @@ module Ballchasing
     end
 
     def ==(other)
-      if other.is_a?(Player)
-        return id == other.id
-      end
+      return id == other.id if other.is_a?(Player)
+
       super(other)
     end
-    alias eql? ==
+    alias_method :eql?, :==
   }
   private_constant :Player
 

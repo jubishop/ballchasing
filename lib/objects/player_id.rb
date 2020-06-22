@@ -6,9 +6,10 @@ module Ballchasing
       if other.is_a?(PlayerID)
         return id == other.id && platform == other.platform
       end
+
       super(other)
     end
-    alias eql? ==
+    alias_method :eql?, :==
   }
   private_constant :PlayerID
 end
