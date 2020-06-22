@@ -32,7 +32,9 @@ module Ballchasing
       begin
         response = HTTP.auth(@token).get(uri)
         raise RateLimitError, response if response.status.code == 429
-        raise ResponseError.new(response) unless response.status.success?
+        unless response.status.success?
+          raise ResponseError.new(@token, response)
+        end
 
         raw_data = response.to_s
         data = JSON.parse(raw_data)
