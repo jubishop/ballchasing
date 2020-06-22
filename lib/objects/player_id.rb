@@ -1,6 +1,14 @@
 require 'rstruct'
 
 module Ballchasing
-  PlayerID = KVStruct.new(%i[id platform player_number])
+  PlayerID = KVStruct.new(%i[id platform player_number]) {
+    def ==(other)
+      if other.is_a?(PlayerID)
+        return id == other.id && platform == other.platform
+      end
+      super(other)
+    end
+    alias eql? ==
+  }
   private_constant :PlayerID
 end

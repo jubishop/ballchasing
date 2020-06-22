@@ -174,6 +174,14 @@ module Ballchasing
       args[:rank] = Rank.new(args.fetch(:rank)) if args[:rank]
       super(args)
     end
+
+    def ==(other)
+      if other.is_a?(Player)
+        return id == other.id
+      end
+      super(other)
+    end
+    alias eql? ==
   }
   private_constant :Player
 
