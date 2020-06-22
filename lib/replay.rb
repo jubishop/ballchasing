@@ -181,6 +181,10 @@ module Ballchasing
       super(other)
     end
     alias_method :eql?, :==
+
+    def hash
+      return id.hash
+    end
   }
   private_constant :Player
 

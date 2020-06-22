@@ -10,6 +10,10 @@ module Ballchasing
       super(other)
     end
     alias_method :eql?, :==
+
+    def hash
+      return "#{id}:::#{platform}".hash
+    end
   }
   private_constant :PlayerID
 end
