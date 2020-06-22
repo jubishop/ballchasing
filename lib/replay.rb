@@ -155,7 +155,6 @@ module Ballchasing
   ###### PLAYER #####
 
   Player = KVStruct.new(:id,
-                        :name,
                         :stats,
                         :start_time,
                         :end_time,
@@ -164,6 +163,7 @@ module Ballchasing
                         :camera,
                         :steering_sensitivity,
                         %i[
+                          name
                           mvp
                           rank
                         ]) {
