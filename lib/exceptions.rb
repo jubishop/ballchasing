@@ -8,5 +8,10 @@ module Ballchasing
       @response = response
     end
   end
-  class RateLimitError < Error; end
+  class RateLimitError < Error
+    attr_reader :token
+    def initialize(token)
+      @token = token
+    end
+  end
 end

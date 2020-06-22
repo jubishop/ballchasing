@@ -31,7 +31,7 @@ module Ballchasing
 
       begin
         response = HTTP.auth(@token).get(uri)
-        raise RateLimitError, response if response.status.code == 429
+        raise RateLimitError.new(@token) if response.status.code == 429
         unless response.status.success?
           raise ResponseError.new(@token, response)
         end
