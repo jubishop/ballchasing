@@ -32,10 +32,10 @@ module Ballchasing
           query: HTTP::URI.form_encode(query))
 
       begin
-        client = HTTP.headers(
+        client = HTTP.with_headers(
             HTTP::Headers::USER_AGENT => @user_agent,
             HTTP::Headers::AUTHORIZATION => @token)
-        puts client
+        debugger(binding)
         response = client.get(uri)
         raise RateLimitError, @token if response.status.code == 429
         unless response.status.success?
