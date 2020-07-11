@@ -9,13 +9,15 @@ require_relative 'replays'
 
 module Ballchasing
   class API
-    def initialize(token = ENV['BALLCHASING_TOKEN'])
+    def initialize(token = ENV['BALLCHASING_TOKEN'],
+                   user_agent = HTTP::Request::USER_AGENT)
       @token = token
+      @user_agent = user_agent
       raise ArgumentError, 'Ballchasing::API needs a token' unless @token
     end
 
     def replays(params = {}) # rubocop:disable Style/OptionHash
-      Replays.new(self, request('/api/replays', params))
+      Replays.new(self, request('api/replays', params))
     end
 
     def replay(id)
@@ -30,8 +32,11 @@ module Ballchasing
           query: HTTP::URI.form_encode(query))
 
       begin
-        response = HTTP.auth(@token).get(uri)
-        raise RateLimitError.new(@token) if response.status.code == 429
+        client = HTTP.headers(
+            HTTP::Headers::USER_AGENT => @user_agent,
+            HTTP::Headers::AUTHORIZATION => @token)
+        response = client.get(uri)
+        raise RateLimitError, @token if response.status.code == 429
         unless response.status.success?
           raise ResponseError.new(@token, response)
         end

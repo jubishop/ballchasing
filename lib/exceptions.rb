@@ -3,6 +3,7 @@ module Ballchasing
   class RequestError < Error; end
   class ResponseError < Error
     attr_reader :token, :response
+
     def initialize(token, response)
       @token = token
       @response = response
@@ -10,6 +11,7 @@ module Ballchasing
   end
   class RateLimitError < Error
     attr_reader :token
+
     def initialize(token)
       @token = token
     end
