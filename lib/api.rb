@@ -35,7 +35,6 @@ module Ballchasing
         client = HTTP.headers(
             HTTP::Headers::USER_AGENT => @user_agent,
             HTTP::Headers::AUTHORIZATION => @token)
-        debugger(binding)
         response = client.get(uri)
         raise RateLimitError, @token if response.status.code == 429
         unless response.status.success?
