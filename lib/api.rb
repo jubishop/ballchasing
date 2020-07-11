@@ -32,7 +32,7 @@ module Ballchasing
           query: HTTP::URI.form_encode(query))
 
       begin
-        client = HTTP.with_headers(
+        client = HTTP.headers(
             HTTP::Headers::USER_AGENT => @user_agent,
             HTTP::Headers::AUTHORIZATION => @token)
         debugger(binding)
