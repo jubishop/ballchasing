@@ -15,7 +15,6 @@ module Ballchasing
                                :link,
                                :duration,
                                :map_code,
-                               :map_name,
                                :blue,
                                :orange,
                                :playlist_id,
@@ -25,12 +24,14 @@ module Ballchasing
                                :season,
                                :uploader,
                                :visibility,
+                               :overtime,
                                %i[
                                  groups
                                  max_rank
                                  min_rank
                                  recorder
-                                 overtime
+                                 map_name
+                                 overtime_seconds
                                ]) {
     include Comparable
 
