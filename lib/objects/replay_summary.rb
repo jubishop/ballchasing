@@ -30,6 +30,7 @@ module Ballchasing
                                  max_rank
                                  min_rank
                                  recorder
+                                 overtime
                                ]) {
     include Comparable
 
