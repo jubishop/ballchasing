@@ -30,12 +30,12 @@ module Ballchasing
                         :uploader,
                         :visibility,
                         :status,
-                        :overtime,
                         %i[
                           groups
                           min_rank
                           max_rank
                           recorder
+                          overtime
                           overtime_seconds
                         ]) {
     include Comparable

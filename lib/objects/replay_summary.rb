@@ -24,13 +24,13 @@ module Ballchasing
                                :season,
                                :uploader,
                                :visibility,
-                               :overtime,
                                %i[
                                  groups
                                  max_rank
                                  min_rank
                                  recorder
                                  map_name
+                                 overtime
                                  overtime_seconds
                                ]) {
     include Comparable
