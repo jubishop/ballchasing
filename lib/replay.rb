@@ -161,10 +161,10 @@ module Ballchasing
                         :start_time,
                         :end_time,
                         :car_id,
-                        :car_name,
                         :camera,
                         :steering_sensitivity,
                         %i[
+                          car_name
                           name
                           mvp
                           rank
