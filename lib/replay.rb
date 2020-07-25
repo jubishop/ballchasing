@@ -37,6 +37,7 @@ module Ballchasing
                           recorder
                           overtime
                           overtime_seconds
+                          match_guid
                         ]) {
     include Comparable
 
