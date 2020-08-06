@@ -46,8 +46,8 @@ module Ballchasing
       args[:date] = DateTime.rfc3339(args.fetch(:date)).to_time
       args[:link] = URI(args.fetch(:link))
       args[:duration] = args.fetch(:duration).seconds
-      args[:blue] = Team.new(args.fetch(:blue, []))
-      args[:orange] = Team.new(args.fetch(:orange, []))
+      args[:blue] = Team.new(args.fetch(:blue))
+      args[:orange] = Team.new(args.fetch(:orange))
       args[:uploader] = Uploader.new(args.fetch(:uploader))
       args[:max_rank] = Rank.new(args.fetch(:max_rank)) if args[:max_rank]
       args[:min_rank] = Rank.new(args.fetch(:min_rank)) if args[:min_rank]
@@ -75,7 +75,7 @@ module Ballchasing
 
   ##### TEAM #####
 
-  Team = KVStruct.new(:color, :players, :stats, [:name]) {
+  Team = KVStruct.new(:color, :players = [], :stats, [:name]) {
     def initialize(args)
       args[:players].map! { |player| Player.new(player) }
       args[:stats] = TeamStats.new(args.fetch(:stats))
