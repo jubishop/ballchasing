@@ -77,7 +77,8 @@ module Ballchasing
 
   Team = KVStruct.new(:color, :stats, [:name, :players]) {
     def initialize(args)
-      args[:players]&.map! { |player| Player.new(player) }
+      args[:players] ||= []
+      args[:players].map! { |player| Player.new(player) }
       args[:stats] = TeamStats.new(args.fetch(:stats))
       super(args)
     end
