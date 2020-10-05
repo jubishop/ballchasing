@@ -23,8 +23,6 @@ module Ballchasing
                         :map_name,
                         :blue,
                         :orange,
-                        :playlist_id,
-                        :playlist_name,
                         :rocket_league_id,
                         :season,
                         :uploader,
@@ -37,6 +35,8 @@ module Ballchasing
                           recorder
                           overtime
                           overtime_seconds
+                          playlist_id
+                          playlist_name
                           match_guid
                         ]) {
     include Comparable
