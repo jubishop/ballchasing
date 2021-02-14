@@ -20,7 +20,6 @@ module Ballchasing
                         :team_size,
                         :duration,
                         :map_code,
-                        :map_name,
                         :blue,
                         :orange,
                         :rocket_league_id,
@@ -29,6 +28,8 @@ module Ballchasing
                         :visibility,
                         :status,
                         %i[
+                          season_type
+                          map_name
                           groups
                           min_rank
                           max_rank
