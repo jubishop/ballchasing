@@ -23,6 +23,7 @@ module Ballchasing
                                :uploader,
                                :visibility,
                                %i[
+                                 season_type
                                  groups
                                  max_rank
                                  min_rank
