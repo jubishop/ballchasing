@@ -39,6 +39,7 @@ module Ballchasing
                           playlist_id
                           playlist_name
                           match_guid
+                          date_has_timezone
                         ]) {
     include Comparable
 

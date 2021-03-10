@@ -25,7 +25,6 @@ module Ballchasing
                                %i[
                                  season_type
                                  groups
-                                 date_has_tz
                                  max_rank
                                  min_rank
                                  recorder
@@ -34,6 +33,7 @@ module Ballchasing
                                  overtime_seconds
                                  playlist_id
                                  playlist_name
+                                 date_has_tz
                                ]) {
     include Comparable
 
