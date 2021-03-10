@@ -25,6 +25,7 @@ module Ballchasing
                                %i[
                                  season_type
                                  groups
+                                 date_has_tz
                                  max_rank
                                  min_rank
                                  recorder
