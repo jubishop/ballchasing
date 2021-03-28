@@ -6,7 +6,6 @@ Gem::Specification.new do |spec|
   spec.email         = ['jubishop@gmail.com']
   spec.homepage      = 'https://github.com/jubishop/ballchasing'
   spec.license       = 'MIT'
-  spec.required_ruby_version = Gem::Requirement.new('>= 3.0')
   spec.files         = Dir['lib/**/*.rb']
   spec.require_paths = ['lib']
   spec.bindir        = 'bin'
@@ -15,6 +14,7 @@ Gem::Specification.new do |spec|
     'source_code_uri' => 'https://github.com/jubishop/ballchasing',
     'steep_types' => 'sig'
   }
+  spec.required_ruby_version = Gem::Requirement.new('>= 3.0')
   spec.add_runtime_dependency('core')
   spec.add_runtime_dependency('date')
   spec.add_runtime_dependency('duration')
