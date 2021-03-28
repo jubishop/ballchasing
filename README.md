@@ -1,25 +1,21 @@
 # Ballchasing
 
+[![Rubocop Status](https://github.com/jubishop/ballchasing/workflows/Rubocop/badge.svg)](https://github.com/jubishop/ballchasing/actions)
+
 A Ruby library for the ballchasing.com API.
 
 ## Installation
 
-Add these lines to your application's Gemfile:
+### Global installation
 
-```ruby
-gem 'http'
-
-gem 'core', github: 'jubishop/core'
-gem 'duration', github: 'jubishop/duration'
-gem 'rstruct', github: 'jubishop/rstruct'
-
-gem 'ballchasing', github: 'jubishop/ballchasing'
+```zsh
+gem install ballchasing --source https://www.jubigems.org/
 ```
 
-And then execute:
+### In a Gemfile
 
-```sh
-$ bundle install
+```ruby
+gem 'ballchasing', source: 'https://www.jubigems.org/'
 ```
 
 ## Usage
@@ -74,14 +70,6 @@ fastest_players = results.map { |summary|
 }
 ```
 
-## Contributing
-
-Bug reports and pull requests are welcome on GitHub at https://github.com/jubishop/ballchasing. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/jubishop/ballchasing/blob/master/CODE_OF_CONDUCT.md).
-
 ## License
 
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
-
-## Code of Conduct
-
-Everyone interacting in the Ballchasing project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/ballchasing/blob/master/CODE_OF_CONDUCT.md).
