@@ -1,6 +1,6 @@
 # Ballchasing
 
-[![Rubocop Status](https://github.com/jubishop/ballchasing/workflows/Rubocop/badge.svg)](https://github.com/jubishop/ballchasing/actions)
+[![Rubocop Status](https://github.com/jubishop/ballchasing/workflows/Rubocop/badge.svg)](https://github.com/jubishop/ballchasing/actions/workflows/rubocop.yml)
 
 A Ruby library for the ballchasing.com API.
 
