@@ -12,8 +12,8 @@ module Ballchasing
       @next = URI.parse(data.fetch(:next)) if data[:next]
     end
 
-    def each
-      @replay_summaries.each { |replay_summary| yield replay_summary }
+    def each(&block)
+      @replay_summaries.each(&block)
     end
 
     def next
