@@ -1,7 +1,6 @@
-require 'json'
-require 'http'
-
 require 'core'
+require 'http'
+require 'json'
 
 require_relative 'exceptions'
 require_relative 'replay'

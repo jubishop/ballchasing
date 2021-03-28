@@ -1,5 +1,4 @@
 require 'date'
-
 require 'duration'
 require 'rstruct'
 
@@ -77,7 +76,7 @@ module Ballchasing
 
   ##### TEAM #####
 
-  Team = KVStruct.new(:color, :stats, [:name, :players]) {
+  Team = KVStruct.new(:color, :stats, %i[name players]) {
     def initialize(args)
       args[:players] ||= []
       args[:players].map! { |player| Player.new(player) }

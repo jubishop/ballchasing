@@ -1,6 +1,6 @@
 # Ballchasing
 
-A Ruby library for ballchasing.com's API
+A Ruby library for the ballchasing.com API.
 
 ## Installation
 

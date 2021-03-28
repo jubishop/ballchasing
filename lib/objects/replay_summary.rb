@@ -1,5 +1,4 @@
 require 'date'
-
 require 'rstruct'
 
 require_relative 'player_id'

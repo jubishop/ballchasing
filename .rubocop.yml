@@ -1,4 +1,9 @@
-inherit_from: ~/.rubocop.yml
+inherit_from:
+  - https://raw.githubusercontent.com/jubishop/core/master/.rubocop.yml
 
 Style/DateTime:
   Enabled: false
+
+Naming/VariableNumber:
+  Exclude:
+    - lib/replay.rb
